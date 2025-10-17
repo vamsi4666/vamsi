@@ -1,98 +1,172 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Veltech Login</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #e9f0f7;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
+<head> 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/d1c2ea8b80.js" crossorigin="anonymous"></script></head>
+    <style> 
+:root{
+      --bg: #f1f2f3;
+      --card-bg: #ffffff;
+      --accent: #0b4f7a; /* button color */
+      --accent-dark: #083a5a;
+      --muted: #888b8f;
+      --radius: 10px;
+      --shadow: 0 6px 22px rgba(15,20,25,0.06);
     }
 
-    .login-container {
-      background: white;
-      padding: 40px 35px;
-      border-radius: 10px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-      width: 360px;
-      text-align: center;
+    *{box-sizing:border-box}
+    html,body{
+      height:100%;
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(circle at 10% 10%, rgba(0,0,0,0.02), transparent 20%),
+                  var(--bg);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    .veltech-logo {
-      width: 100px;
-      margin-bottom: 25px;
+    /* Centering layout */
+    .wrap{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
     }
 
-    h2 {
-      color: #004080;
-      margin-bottom: 25px;
-      font-weight: 700;
-      letter-spacing: 1.2px;
+    /* Card */
+    .card{
+      width:100%;
+      max-width:460px;
+      background:var(--card-bg);
+      border-radius:12px;
+      padding:36px 36px 28px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(15,20,25,0.04);
+    }
+
+    /* Logo area */
+    .logo{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      margin-bottom:18px;
+    }
+    .logo img{
+      height:54px;
+      width:auto;
+      object-fit:contain;
+    }
+    .logo .institution{
+      display:none; /* keep simple like the picture; logo alone is centered */
+    }
+
+    h1.title{
+      text-align:center;
+      margin:8px 0 28px;
+      font-size:32px;
+      letter-spacing:0.2px;
+      font-weight:700;
+      color:#0f1720;
+    }
+
+    form{
+      display:block;
+    }
+
+    .field{
+      margin-bottom:18px;
+    }
+
+    label{
+      display:block;
+      font-size:13px;
+      margin-bottom:8px;
+      color:var(--muted);
     }
 
     input[type="text"],
-    input[type="password"] {
-      width: 100%;
-      padding: 12px 14px;
-      margin: 10px 0 20px 0;
-      border: 1.5px solid #c0c9d9;
-      border-radius: 7px;
-      font-size: 16px;
-      transition: border-color 0.3s;
+    input[type="password"]{
+      width:100%;
+      padding:14px 14px;
+      font-size:16px;
+      border-radius:8px;
+      border:1.5px solid rgba(15,20,25,0.08);
+      background: #fff;
+      outline:none;
+      transition: box-shadow .12s, border-color .12s, transform .06s;
+    }
+    input::placeholder{ color: #c9cdd1; }
+
+    input:focus{
+      border-color: rgba(11,79,122,0.9);
+      box-shadow: 0 4px 16px rgba(11,79,122,0.06);
     }
 
-    input[type="text"]:focus,
-    input[type="password"]:focus {
-      border-color: #004080;
-      outline: none;
-    }
-
-    button {
-      background-color: #004080;
-      color: white;
+    .btn{
+      display:block;
+      width:100%;
+      padding:14px;
+      font-size:16px;
+      border-radius:8px;
       border: none;
-      width: 100%;
-      padding: 14px;
-      font-size: 18px;
-      border-radius: 7px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background-color 0.3s;
+      background: linear-gradient(180deg,var(--accent),var(--accent-dark));
+      color: #fff;
+      cursor:pointer;
+      font-weight:600;
+      box-shadow: 0 6px 14px rgba(11,79,122,0.12);
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn:focus{ outline: 3px solid rgba(11,79,122,0.12); }
+
+    .meta{
+      margin-top:12px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      color:var(--muted);
+      font-size:13px;
     }
 
-    button:hover {
-      background-color: #003366;
+    /* small screens */
+    @media (max-width:420px){
+      .card{ padding:28px 20px; }
+      h1.title{ font-size:26px; }
     }
-
-    .forgot-password {
-      margin-top: 15px;
-      font-size: 14px;
-      color: #004080;
-      cursor: pointer;
-      text-decoration: underline;
-    }
-  </style>
-</head>
+    </style>
 <body>
-  <div class="login-container">
-    <img
-      src="https://veltech.edu.in/wp-content/themes/veltech/assets/images/logo.png"
-      alt="Veltech Logo"
-      class="veltech-logo"
-    />
-    <h2>Veltech Login</h2>
-    <form>
-      <input type="text" placeholder="Username or Email" required />
-      <input type="password" placeholder="Password" required />
-      <button type="submit">Log In</button>
-    </form>
-    <div class="forgot-password">Forgot password?</div>
+    
+  <div class="wrap">
+    <main class="card" role="main" aria-labelledby="login-heading">
+      <div class="logo" aria-hidden="true">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyrig4sL6ZdqISMa2IY28VALJZU3HSFKKVEQ&s" alt="">
+      </div>
+
+      <h1 id="login-heading" class="title">College Login</h1>
+
+      <form action="#" method="post" novalidate>
+        <div class="field">
+          <label for="username">Username</label>
+          <input id="username" name="username" type="text" placeholder="Username" autocomplete="username" required>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" placeholder="Password" autocomplete="current-password" required>
+        </div>
+
+        <button class="btn" type="submit">Login</button>
+
+        <div class="meta" aria-hidden="false">
+          <div></div>
+          <div><a href="#" style="color:var(--muted); text-decoration:none; font-size:13px;">Forgot password?</a></div>
+        </div>
+      </form>
+    </main>
   </div>
+
 </body>
+
 </html>
